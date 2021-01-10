@@ -17,7 +17,7 @@ def cross_entropy_loss(probs, target_index):
     batch_size = len(target_index)
     prob = np.zeros(batch_size)
     prob = probs[range(batch_size),target_index.ravel()]
-    loss = np.mean(-np.log(prob))
+    loss = np.sum(-np.log(prob))
     
     return loss
 
@@ -61,10 +61,8 @@ def softmax_with_cross_entropy(preds, target_index):
     
     S = softmax(preds)
     loss = cross_entropy_loss(S, target_index)
-    p = np.zeros_like(S)
-    batch_size = len(target_index)
-    p[range(batch_size), target_index.ravel()] = 1
-    d_preds = (S - p)/batch_size
+    d_preds = S
+    d_preds[range(d_preds.shape[0]), target_index] -= 1
 
     return loss, d_preds
 

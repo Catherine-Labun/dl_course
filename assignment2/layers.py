@@ -16,7 +16,7 @@ def cross_entropy_loss(probs, target_index):
     
     batch_size = len(target_index)
     prob = np.zeros(batch_size)
-    prob = probs[range(batch_size),target_index.ravel()]
+    prob = probs[range(batch_size),target_index]
     loss = np.sum(-np.log(prob))
     
     return loss

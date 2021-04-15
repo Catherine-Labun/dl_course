@@ -11,8 +11,8 @@ class MomentumSGD:
     Implements Momentum SGD update
     '''
     def __init__(self, momentum=0.9):
-        self.momentum = 0.9
-    
+        self.momentum = momentum
+        self.velocity = 0.0
     def update(self, w, d_w, learning_rate):
         '''
         Performs Momentum SGD update
@@ -26,4 +26,8 @@ class MomentumSGD:
         updated_weights, np array same shape as w
         '''
         # TODO Copy from the previous assignment
-        raise Exception("Not implemented!")
+        self.velocity = self.velocity*self.momentum - learning_rate*d_w
+        
+        updated_weights = w + self.velocity
+        
+        return updated_weights
